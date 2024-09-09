@@ -7,11 +7,11 @@ const fs = require("fs");
 const program = new Command();
 
 program
-  .name("create-my-app")
+  .name("create-tanstack-start")
   .description(
     "CLI to create a React app with Vite, TanStack Router, and TanStack Query"
   )
-  .version("1.0.0");
+  .version("1.0.20");
 
 program.parse(process.argv);
 
@@ -57,20 +57,21 @@ program.parse(process.argv);
   await execa("npm", ["install"]);
   await execa("npm", [
     "install",
-    "@tanstack/react-router",
-    "@tanstack/react-query",
+    "@tanstack/react-router@latest",
+    "@tanstack/react-query@latest",
+    "react-router-dom@latest",
   ]);
 
   // Add TanStack Router and Query setup
-  console.log(`\nSetting up TanStack Router and Query...`);
+  console.log(`\nSetting up TanStack Query and React Router Dom...`);
 
   const appJsPath = useTypescript ? "src/App.tsx" : "src/App.jsx";
 
   const appJsContent = `
-import React from 'react';
-import { RouterProvider } from '@tanstack/react-router';
-import { router } from './router';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
@@ -83,31 +84,37 @@ function App() {
 }
 
 export default App;
+
   `;
 
   const routerJsContent = `
-import { createReactRouter, createRouteConfig } from '@tanstack/react-router';
-import Home from './Home';
-
-// Create a route configuration
-const routeConfig = createRouteConfig().addChildren([
+import { createBrowserRouter } from "react-router-dom";
+import Home from "./Home";
+// Define your routes
+const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Home />,
   },
 ]);
 
-// Create the router
-export const router = createReactRouter({
-  routeConfig,
-});
+export default router;
+
   `;
 
   const homeJsContent = `
 import React from 'react';
 
 function Home() {
-  return <h1>Welcome to TanStack Router and Query!</h1>;
+  return <div style={{
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent:'center',
+    alignItems:'center'
+  }}>
+    <h1>Welcome to react router dom and Query!</h1>
+  </div>;
 }
 
 export default Home;

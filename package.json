@@ -1,20 +1,23 @@
 {
   "name": "create-tanstack-start",
-  "version": "1.0.0",
+  "version": "1.0.20",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "tanstack",
+    "vite"
+  ],
   "author": "Snehasis Debbarman",
   "license": "ISC",
-  "description": "",
+  "description": "special thanks to christoffer Bjelke(@chribjel)",
   "bin": {
     "create-my-app": "index.js"
   },
   "dependencies": {
     "commander": "^12.1.0",
     "execa": "^9.3.1",
-    "inquirer": "^10.2.2"
+    "inquirer": "^8.2.0"
   }
 }
